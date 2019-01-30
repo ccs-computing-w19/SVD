@@ -1,0 +1,104 @@
+
+import java.awt.Color;
+ 
+import javax.swing.*;
+
+public class ChessBoard {
+	
+	//given the index 
+	private boolean isWin() {
+		//向西寻找
+		for(int x=xIndex-1; x>=0; x--) {
+			Color c=isBlack?Color:Color.white;
+			if(getChess(x,yIndex,c)!=null) {
+				continueCount++;
+			}else {
+				break; 
+			}
+		}
+		
+		//向东寻找
+		for(int x=xIndex+1; x<=COLS; x++) {
+			Color c=isBlack?Color:Color.white;
+			if(getChess(x,yIndex,c)!=null) {
+				continueCount++; 
+			}else {
+				break; 
+			}
+		}
+		
+		if(continueCount>=5) {
+			return true; 
+		}else
+			continueCount=1; 
+
+	       //继续另一种搜索纵向
+	       //向上搜索
+	    for(int y=yIndex-1;y>=0;y--){
+	    	Color c=isBlack?Color.black:Color.white;
+	    	if(getChess(xIndex,y,c)!=null){
+	    		continueCount++;
+	    	}else
+	    		break;
+	    }
+	       //纵向向下寻找
+	    for(int y=yIndex+1;y<=ROWS;y++){
+	    	Color c=isBlack?Color.black:Color.white;
+	    	if(getChess(xIndex,y,c)!=null)
+	    	    continueCount++;
+	        else
+	    	   break;
+	       
+	    }
+	    if(continueCount>=5)
+	    	return true;
+	    else
+	    	continueCount=1;
+	       
+	       
+	       //继续另一种情况的搜索：斜向
+	       //东北寻找
+	    for(int x=xIndex+1,y=yIndex-1;y>=0&&x<=COLS;x++,y--){
+	    	Color c=isBlack?Color.black:Color.white;
+	    	if(getChess(x,y,c)!=null){
+	    		continueCount++;
+	    	}
+	    	else break;
+	    }
+	       //西南寻找
+	    for(int x=xIndex-1,y=yIndex+1;x>=0&&y<=ROWS;x--,y++){
+	    	Color c=isBlack?Color.black:Color.white;
+	    	if(getChess(x,y,c)!=null){
+	    		continueCount++;
+	    	}
+	    	else break;
+	    }
+	    if(continueCount>=5)
+	    	return true;
+	    else continueCount=1;
+	       
+	       
+	       //继续另一种情况的搜索：斜向
+	       //西北寻找
+	    for(int x=xIndex-1,y=yIndex-1;x>=0&&y>=0;x--,y--){
+	    	Color c=isBlack?Color.black:Color.white;
+	    	if(getChess(x,y,c)!=null)
+	    		continueCount++;
+	    	else break;
+	    }
+	       //东南寻找
+	    for(int x=xIndex+1,y=yIndex+1;x<=COLS&&y<=ROWS;x++,y++){
+	    	Color c=isBlack?Color.black:Color.white;
+	    	if(getChess(x,y,c)!=null)
+	    		continueCount++;
+	    	else break;
+	    }
+	    if(continueCount>=5)
+	    	return true;
+	    else continueCount=1;
+	       
+	    return false;
+	}
+	
+	
+}
